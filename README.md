@@ -6,7 +6,7 @@ There is a powershell script setup.sh that contains scripted functions to bring 
 
 👆 To bring up the environment, run the following command:
 ```
-sh setup.sh up
+sh setup.sh start
 ```
 
 👇 To bring down the environment, run the following command:
