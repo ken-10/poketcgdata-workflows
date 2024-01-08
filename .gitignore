@@ -1,4 +1,6 @@
 .env
+dags_data/
 logs/
 plugins/
 venv
+.DS_Store
