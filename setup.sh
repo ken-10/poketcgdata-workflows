@@ -12,7 +12,7 @@ function down {
 
 function restart {
     down
-    up
+    start
 }
 
 ${1}
