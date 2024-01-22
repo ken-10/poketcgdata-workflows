@@ -1,4 +1,25 @@
+import logging
 import requests
+
+
+def get_all(api_url: str, api_key: str, resource: str, timeout_in_seconds: float = 30):
+    """
+    Visit following link for supported resources - https://docs.pokemontcg.io/
+    """
+    params = {'page': 1}
+    results = []
+    logging.info(f"Getting all {resource}")
+    while True:
+        url = f'{api_url}/{resource}'
+        rest_client = RestApiClient(url, api_key, timeout_in_seconds)
+        response = rest_client.get(params).json()
+        response_data = response['data']
+        if len(response_data) <= 0:
+            break
+        results.extend(response_data)
+        logging.info(f"Retrieved {response['count']} out of {response['totalCount']}.")
+        params['page'] += 1
+    return results
 
 
 class RestApiClient:
