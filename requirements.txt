@@ -1,3 +1,5 @@
 apache-airflow-providers-celery==3.5.1
 pandas==2.1.4
 psycopg2-binary==2.9.9
+pytest==7.4.4
+requests==2.31.0

@@ -1,6 +1,10 @@
+# Files
+.DS_Store
 .env
+# Folders
 dags_data/
 logs/
 plugins/
 venv
-.DS_Store
+.idea
+__pycache__
