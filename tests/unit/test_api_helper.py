@@ -1,5 +1,5 @@
 import pytest
-from common_packages.rest_api_client import RestApiClient
+from common_packages.api_helper import RestApiClient
 
 
 @pytest.mark.parametrize("input_params", [({"api_key": "API_KEY", "api_url": "API_URL", "timeout_in_seconds": 10}),
