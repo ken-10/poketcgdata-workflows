@@ -1,0 +1,10 @@
+COPY {{ table }}({{ columns }})
+FROM STDIN (
+    format {{ file_format }}
+    {%- if delimiter is defined %}
+    ,delimiter '{{ delimiter }}'
+    {%- endif %}
+    {%- if header_option is defined %}
+    ,header {{ header_option }}
+    {%- endif %}
+)
