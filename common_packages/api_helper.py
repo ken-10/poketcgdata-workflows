@@ -7,9 +7,6 @@ def get_all(api_url: str, api_key: str, resource: APIResource, timeout_in_second
     """
     Visit following link for supported resources - https://docs.pokemontcg.io/
     """
-    if not isinstance(resource,APIResource):
-        raise TypeError("Incorrect resource parameter provided!")
-
     params = {'page': 1}
     results = []
     logging.info(f"Getting all {resource.value}")
