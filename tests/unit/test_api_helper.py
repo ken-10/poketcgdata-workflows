@@ -1,6 +1,6 @@
 import pytest
-from common_packages.api_helper import RestApiClient
-from common_packages import api_helper
+from dags.common_packages import RestApiClient
+from dags.common_packages import api_helper
 
 
 @pytest.mark.parametrize("input_params", [({"api_key": "API_KEY", "api_url": "API_URL", "timeout_in_seconds": 10}),
