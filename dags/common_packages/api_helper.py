@@ -1,6 +1,6 @@
 import logging
 import requests
-from dags.common_packages.enums.APIResource import APIResource
+from common_packages.enums.APIResource import APIResource
 
 
 def get_all(api_url: str, api_key: str, resource: APIResource, timeout_in_seconds: float = 30):
