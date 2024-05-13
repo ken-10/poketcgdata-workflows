@@ -1,4 +1,4 @@
-name: 'poketcgdata'
+name: 'card_set'
 
 config-version: 2
 version: '1.0.0'
@@ -20,7 +20,7 @@ clean-targets:
 require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
-  poketcgdata:
+  card_set:
       materialized: table
       staging:
         materialized: view
