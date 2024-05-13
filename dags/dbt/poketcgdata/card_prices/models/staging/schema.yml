@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_tcgplayer_price
+    columns:
+      - name: card_id
+        tests:
+          - not_null
+      - name: tcgplayer_updated_date
+        tests:
+          - not_null
+      - name: card_print
+        tests:
+          - not_null
+      - name: low
+      - name: mid
+      - name: high
+      - name: market
+      - name: direct_low
