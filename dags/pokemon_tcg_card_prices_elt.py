@@ -64,7 +64,7 @@ def pokemon_tcg_card_prices_elt():
         file_helper.delete_folder(processing_folder)
 
     dbt_transfrom = DbtTaskGroup(
-        group_id="transform_data",
+        group_id="transform_data_to_target_table",
         project_config=ProjectConfig(os.path.join(_AIRFLOW_PATHS["dbt"]["poketcgdata"], "card_prices")),
         profile_config=profile_config,
         execution_config=dbt_execution_config,
