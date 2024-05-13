@@ -32,7 +32,7 @@ def failure_cleanup(context):
 
 
 @dag(
-    schedule=None,
+    schedule='*/30 * * * *',
     start_date=pendulum.datetime(2024, 1, 1, tz="UTC"),
     catchup=False,
     tags=["ELT", "POKEMON", "SET"],
