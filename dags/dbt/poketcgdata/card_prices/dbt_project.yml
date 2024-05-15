@@ -1,4 +1,4 @@
-name: 'card_set'
+name: 'card_price'
 
 config-version: 2
 version: '1.0.0'
@@ -20,7 +20,7 @@ clean-targets:
 require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 models:
-  card_set:
+  card_price:
       materialized: table
       staging:
         materialized: view
