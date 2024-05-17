@@ -14,7 +14,7 @@ select
 	stp.high as high,
 	stp.market as market,
 	stp.direct_low as direct_low,
-	current_date as created_datetime,
+	now() at time zone 'utc' as created_datetime,
 	(select id from cards.currency_code where code = 'USD') as currency_cd
 from {{ ref('stg_tcgplayer_price') }} stp
     {% if is_incremental() %}
