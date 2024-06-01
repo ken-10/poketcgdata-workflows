@@ -1,2 +1,9 @@
 pokemon_tcg_api:
   key: get_secret_POKEMON_TCG_API_KEY
+
+poketcgdata_db:
+  server: get_secret_POKETCGDATA_DB_SERVER_SECRET
+  username: get_secret_POKETCGDATA_DB_USERNAME_SECRET
+  pwd: get_secret_POKETCGDATA_DB_PWD_SECRET
+
+discord_webhook: get_secret_DISCORD_WEBHOOK_SECRET
