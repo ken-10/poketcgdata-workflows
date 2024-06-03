@@ -2,7 +2,7 @@
 Automated system to ingest daily Pokemon TCG pricing data from **[Pokemon TCG IO API](https://docs.pokemontcg.io/)**.
 
 > [!NOTE]
-> The way this project is deployed/architected may not make sense for the sake of budgeting and to better learn the applications being used.
+> The way this project is deployed/architected may not make sense for the due to budgeting and to better learn the applications being used.
 
 # Architecture
 ![Architecture Diagram](/assets/images/poketcgworkflows_highlevel_diagram_2.jpg)
