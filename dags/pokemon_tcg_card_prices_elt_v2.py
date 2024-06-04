@@ -11,20 +11,16 @@ from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig, ExecutionConfig
 
 _AIRFLOW_PATHS = common_variables.airflow_paths
 _API_URL = common_variables.api_url
+_DB_CONN_ID = 'poketcgdata'
 _DBT_EXECUTABLE_PATH = common_variables.dbt_executable_path
 _MSSQL_DB_DRIVER = common_variables.mssql_driver
 
-# profile_config = ProfileConfig(
-#     profile_name="card_price",
-#     target_name="all",
-#     profiles_yml_filepath=os.path.join(_AIRFLOW_PATHS["dbt"]["poketcgdata_mssql"], "card_prices", "profiles.yml")
-# )
 
 profile_config = ProfileConfig(
     profile_name="card_price",
     target_name="all",
     profile_mapping=SqlServerUserPasswordProfileMapping(
-        conn_id="poketcgdata",
+        conn_id=_DB_CONN_ID,
         profile_args={"schema": "cards",
                       "driver": _MSSQL_DB_DRIVER}
     ),
@@ -62,21 +58,14 @@ def pokemon_tcg_card_prices_elt_v2():
 
     @task(on_failure_callback=send_failure_alert)
     def truncate_landing_table():
-        mssql_helper.execute_query(conn_id='poketcgdata', sql_query='TRUNCATE TABLE cards.ldg_card_price;')
+        mssql_helper.execute_query(conn_id=_DB_CONN_ID, sql_query='TRUNCATE TABLE cards.ldg_card_price;')
 
     @task(on_failure_callback=send_failure_alert)
     def bulk_copy_to_landing_table(**kwargs):
-        from airflow.utils.log.secrets_masker import mask_secret
-        db_config = config_helper.get_config("poketcgdata_db")
-        username = db_config["username"]
-        password = db_config["pwd"]
-        mask_secret(username)
-        mask_secret(password)
         prices_csv = kwargs["ti"].xcom_pull(dag_id=kwargs["dag_run"].dag_id,
                                             task_ids="get_card_details_from_api")["cards_csv"]
-        mssql_helper.bcp_file_to_table(database="poketcgdata_dev", schema="cards", table="ldg_card_price",
-                                       file_path=prices_csv, server=db_config["server"], username=username,
-                                       password=password)
+        mssql_helper.bcp_file_to_table(conn_id=_DB_CONN_ID, schema="cards", table="ldg_card_price",
+                                       file_path=prices_csv)
 
     @task(on_failure_callback=send_failure_alert)
     def remove_folder_and_contents(**kwargs):
@@ -93,7 +82,6 @@ def pokemon_tcg_card_prices_elt_v2():
             'on_failure_callback': send_failure_alert
         }
     )
-
 
     (
             get_card_details_from_api()
