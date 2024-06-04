@@ -47,7 +47,7 @@ def send_failure_alert(context):
 def pokemon_tcg_sets_elt_v2():
     @task(on_failure_callback=send_failure_alert)
     def get_sets_from_api():
-        processing_folder = file_helper.create_folder(_AIRFLOW_PATHS["dags_data"], "pokemon_tcg_sets_load")
+        processing_folder = file_helper.create_folder(_AIRFLOW_PATHS["dags_data"], "pokemon_tcg_sets_load_v2")
         api_key = config_helper.get_config("pokemon_tcg_api")["key"]
         sets_payload = api_helper.get_all(api_url=_API_URL, api_key=api_key, resource=APIResource.SETS)
         sets_csv = os.path.join(processing_folder, "pokemon_tcg_sets.csv")
