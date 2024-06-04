@@ -40,7 +40,7 @@ def send_failure_alert(context):
 
 
 @dag(
-    schedule='0 */2 * * *',
+    schedule='30 */2 * * *',
     start_date=pendulum.datetime(2024, 1, 1, tz="UTC"),
     catchup=False,
     tags=["ELT", "POKEMON", "CARD", "PRICES", "MSSQL"],
