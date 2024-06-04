@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: card_set
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: set_name
+        tests:
+          - not_null
+      - name: total
+        tests:
+          - not_null
+      - name: series
+        tests:
+          - not_null
+      - name: printed_total
+        tests:
+            - not_null
+      - name: release_date
+        tests:
+          - not_null
+      - name: api_updated_datetime
+        tests:
+          - not_null
+      - name: logo_img_url
+        tests:
+          - not_null
+      - name: symbol_img_url
+        tests:
+          - not_null
+      - name: created_datetime
+        tests:
+          - not_null
+

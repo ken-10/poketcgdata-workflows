@@ -1,2 +1,4 @@
 pokemon_tcg_api:
   key: get_secret_POKEMON_TCG_API_KEY
+
+discord_webhook: get_secret_DISCORD_WEBHOOK_SECRET
