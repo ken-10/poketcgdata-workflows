@@ -1,4 +1,7 @@
-"Tests for the sql server profile."
+"""
+Tests for the sql server profile.
+Adapted from: https://github.com/astronomer/astronomer-cosmos/blob/main/tests/profiles/postgres/test_pg_user_pass.py
+"""
 
 from unittest.mock import patch
 

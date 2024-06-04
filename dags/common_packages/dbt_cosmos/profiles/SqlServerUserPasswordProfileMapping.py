@@ -3,6 +3,10 @@ from __future__ import annotations
 from cosmos.profiles import BaseProfileMapping
 from typing import Any
 
+"""
+Adapted from:
+https://github.com/astronomer/astronomer-cosmos/blob/main/cosmos/profiles/postgres/user_pass.py
+"""
 
 class SqlServerUserPasswordProfileMapping(BaseProfileMapping):
 
