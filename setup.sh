@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/sh
 function start {
     docker volume prune -f
     docker build -t poketcgdata-airflow -f ./Dockerfile ./
