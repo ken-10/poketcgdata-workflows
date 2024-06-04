@@ -15,12 +15,18 @@ def execute_query(conn_id: str, sql_query: str, params=None):
             logging.info(f"Executed query")
 
 
-def bcp_file_to_table(database: str, schema: str, table: str, file_path: str, server: str, username: str, password: str,
-                      field_terminator=None, char_data_type=None, row_terminator=None):
-    # TODO: Modify function to get attributes from airflow connection
-    logging.info(f'Attempting to bulk copy {file_path} to {database}.{schema}.{table}')
+def bcp_file_to_table(conn_id: str, schema: str, table: str, file_path: str, field_terminator=None, char_data_type=None,
+                      row_terminator=None):
+    from airflow.models.connection import Connection
+    from airflow.utils.log.secrets_masker import mask_secret
+    conn = Connection.get_connection_from_secrets(conn_id)
+    database = conn.schema
+    username = conn.login
+    password = conn.password
+    mask_secret([username, password])
+    logging.info(f'Using connection ID {conn_id} to bulk copy {file_path} to {database}.{schema}.{table}')
     cmd_prefix = f'bcp {database}.{schema}.{table} in {file_path}'
-    cmd_suffix = f'-S {server} -U {username} -P {password}'
+    cmd_suffix = f'-S {conn.host} -U {username} -P {password}'
     cmd_options = '-c'
     if char_data_type:
         cmd_options += f' {char_data_type}'
