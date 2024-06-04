@@ -10,6 +10,7 @@ from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig, ExecutionConfig
 
 _AIRFLOW_PATHS = common_variables.airflow_paths
 _API_URL = common_variables.api_url
+_DB_CONN_ID = "poketcgdata"
 _DBT_EXECUTABLE_PATH = common_variables.dbt_executable_path
 _MSSQL_DB_DRIVER = common_variables.mssql_driver
 
@@ -40,7 +41,7 @@ def send_failure_alert(context):
     schedule='*/30 * * * *',
     start_date=pendulum.datetime(2024, 1, 1, tz="UTC"),
     catchup=False,
-    tags=["ELT", "POKEMON", "SET"],
+    tags=["ELT", "POKEMON", "SET", "MSSQL"],
     max_active_runs=1
 )
 def pokemon_tcg_sets_elt_v2():
@@ -55,21 +56,14 @@ def pokemon_tcg_sets_elt_v2():
 
     @task(on_failure_callback=send_failure_alert)
     def truncate_landing_table():
-        mssql_helper.execute_query('poketcgdata', 'TRUNCATE TABLE cards.ldg_card_set;')
+        mssql_helper.execute_query(_DB_CONN_ID, 'TRUNCATE TABLE cards.ldg_card_set;')
 
     @task(on_failure_callback=send_failure_alert)
     def bulk_copy_to_landing_table(**kwargs):
-        from airflow.utils.log.secrets_masker import mask_secret
-        db_config = config_helper.get_config("poketcgdata_db")
-        username = db_config["username"]
-        password = db_config["pwd"]
-        mask_secret(username)
-        mask_secret(password)
         sets_csv = kwargs["ti"].xcom_pull(dag_id=kwargs["dag_run"].dag_id,
-                                            task_ids="get_sets_from_api")["sets_csv"]
-        mssql_helper.bcp_file_to_table(database="poketcgdata_dev", schema="cards", table="ldg_card_set",
-                                       file_path=sets_csv, server=db_config["server"], username=username,
-                                       password=password)
+                                          task_ids="get_sets_from_api")["sets_csv"]
+        mssql_helper.bcp_file_to_table(conn_id=_DB_CONN_ID, schema="cards", table="ldg_card_price",
+                                       file_path=sets_csv)
 
     @task(on_failure_callback=send_failure_alert)
     def remove_folder_and_contents(**kwargs):
