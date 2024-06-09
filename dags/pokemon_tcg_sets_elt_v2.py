@@ -62,7 +62,7 @@ def pokemon_tcg_sets_elt_v2():
     def bulk_copy_to_landing_table(**kwargs):
         sets_csv = kwargs["ti"].xcom_pull(dag_id=kwargs["dag_run"].dag_id,
                                           task_ids="get_sets_from_api")["sets_csv"]
-        mssql_helper.bcp_file_to_table(conn_id=_DB_CONN_ID, schema="cards", table="ldg_card_price",
+        mssql_helper.bcp_file_to_table(conn_id=_DB_CONN_ID, schema="cards", table="ldg_card_set",
                                        file_path=sets_csv)
 
     @task(on_failure_callback=send_failure_alert)
