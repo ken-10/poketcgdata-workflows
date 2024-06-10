@@ -8,7 +8,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 USER root
-RUN sudo apt-get update && apt-get install postgresql-client-15 && apt-get install -y \
+RUN sudo apt-get update && apt-get install -y \
     curl \
     apt-transport-https \
     gnupg2
