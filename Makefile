@@ -4,18 +4,18 @@
 docker-build:
 	docker build -t poketcgdata-airflow -f ./Dockerfile ./
 
-dc-up:
-    docker compose -f docker-compose.yaml up --remove-orphans -d
+dc-up: 
+	docker compose -f docker-compose.yaml up --remove-orphans -d
 
-perms:
+perms: 
 	sudo mkdir -p ./logs ./plugins ./config && echo -e "AIRFLOW_UID=$(id -u)" > .env
 
 up: perms docker-build dc-up
 
-down:
+down: 
 	docker compose down
 
-sh:
+sh: 
 	docker exec -ti webserver bash
 
 ####################################################################################################################
