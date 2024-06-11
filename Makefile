@@ -8,7 +8,7 @@ dc-up:
 	docker compose -f docker-compose.yaml up --remove-orphans -d
 
 perms: 
-	sudo mkdir -p ./logs ./plugins ./config && echo -e "AIRFLOW_UID=$(id -u)" > .env
+	sudo mkdir -p ./logs ./plugins ./config && sudo chmod -R u=rwx,g=rwx,o=rwx ./logs ./plugins ./config ./dags ./tests
 
 up: perms docker-build dc-up
 
