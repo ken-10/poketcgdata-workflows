@@ -74,7 +74,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "poketcgdata_workflows_ec2" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = "ami-0c29a2c5cf69b5a9c"
   instance_type = var.instance_type
 
   key_name        = aws_key_pair.generated_key.key_name
