@@ -45,7 +45,7 @@ def send_failure_alert(context):
     max_active_runs=1
 )
 def pokemon_tcg_sets_elt_v2():
-    @task(on_failure_callback=send_failure_alert, retries=1, retry_delay=pendulum.duration(seconds=10))
+    @task(on_failure_callback=send_failure_alert, retries=1, retry_delay=pendulum.duration(seconds=120))
     def get_sets_from_api():
         processing_folder = file_helper.create_folder(_AIRFLOW_PATHS["dags_data"], "pokemon_tcg_sets_load_v2")
         api_key = config_helper.get_config("pokemon_tcg_api")["key"]
