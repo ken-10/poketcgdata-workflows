@@ -5,7 +5,7 @@ Automated system to ingest daily Pokemon TCG pricing data from **[Pokemon TCG IO
 > The way this project is deployed/architected may not make sense due to budgeting and to better learn the applications being used.
 
 # Architecture
-![Architecture Diagram](/assets/images/poketcgworkflows_highlevel_diagram_2.jpg)
+![Architecture Diagram](/assets/images/poketcgworkflows_highlevel_diagram_3.jpg)
 
 ## How to start
 There is a powershell script setup.sh that contains scripted functions to bring containers up, down, and restart them (locally).
