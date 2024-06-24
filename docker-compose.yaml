@@ -58,7 +58,7 @@ x-airflow-common:
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
-    AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: 60.0
+    AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: 180.0
     AIRFLOW__CORE__PARALLELISM: 4
     # Example dags are turned off. Set to true if needed.
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
