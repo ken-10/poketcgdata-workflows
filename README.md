@@ -15,7 +15,23 @@ Automated system to ingest daily Pokemon TCG pricing data from **[Pokemon TCG IO
 ![Azure SQL](https://img.shields.io/badge/azure%20sql-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white) ![AWS](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 
 
-## How to start
+## Setup
+
+This does require a Azure SQL Database or Microsoft SQL Server instance to store data. There is usually a free tier for Azure SQL Database.<br/><br/>
+<ins>**If you want to run this 100% locally**</ins>, skip the steps related to terraform and AWS CLI. Also, set up a **[Microsoft SQL Server 2022 Linux container with Docker](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16&tabs=cli&pivots=cs1-bash)** locally on your own as the database.
+
+> [!CAUTION]
+> Although there are free tiers for Azure SQL and AWS EC2 instances, <ins>please be aware that costs may incur with these services.</ins><br/> **I am not responsible for any costs that occur.**
+
+### Prerequisites
+- To run on local/development, install the following on your local machine:
+  - **[Docker]**(https://www.docker.com/products/docker-desktop/)
+- To deploy on AWS via Terraform, install the following on your local machine:
+  - Install **[Terraform CLI]**(https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)  
+  - Create an AWS account
+  - Install and configure AWS CLI
+
+### How to start Airflow locally
 There is a powershell script setup.sh that contains scripted functions to bring containers up, down, and restart them (locally).
 
 👆 To bring up the environment, run the following command:
