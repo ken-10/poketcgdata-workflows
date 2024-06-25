@@ -25,9 +25,9 @@ This does require a Azure SQL Database or Microsoft SQL Server instance to store
 
 ### Prerequisites
 - To run on local/development, install the following on your local machine:
-  - **[Docker]**(https://www.docker.com/products/docker-desktop/)
+  - **[Docker](https://www.docker.com/products/docker-desktop/)**
 - To deploy on AWS via Terraform, install the following on your local machine:
-  - Install **[Terraform CLI]**(https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)  
+  - Install **[Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) ** 
   - Create an AWS account
   - Install and configure AWS CLI
 
