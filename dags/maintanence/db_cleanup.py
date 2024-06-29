@@ -14,12 +14,19 @@ UTC = timezone.utc
 DRY_RUN = False
 
 
+def send_failure_alert(context):
+    from common_packages import config_helper, discord_helper
+    webhook = config_helper.get_config("discord_webhook")
+    ti = context.get("task_instance")
+    discord_helper.send_failure_message(webhook_link=webhook, dag_id=ti.dag_id, task_id=ti.task_id, log_url=ti.log_url,
+                                        run_id=ti.run_id)
+
+
 @dag(
     dag_id="db_cleanup",
     schedule_interval="15 0 * * *",
     start_date=datetime(2024, 1, 1),
     catchup=False,
-    is_paused_upon_creation=False,
     doc_md=__doc__,
     tags=['Maintanence', 'Metadata DB'],
     params={
@@ -42,7 +49,7 @@ DRY_RUN = False
     },
 )
 def db_cleanup():
-    @task
+    @task(on_failure_callback=send_failure_alert)
     def get_timestamp_min_and_tables(**kwargs):
         tables = kwargs["params"]["tables"]
         max_metadata_age_in_days = kwargs["params"]["max_metadata_age_in_days"]
@@ -69,6 +76,7 @@ def db_cleanup():
              --yes \
         """,
         do_xcom_push=False,
+        on_failure_callback=send_failure_alert
     )
     get_timestamp_min_and_tables() >> clean_db
 
